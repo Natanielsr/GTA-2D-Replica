@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VehicleBehaviour;
 
 public enum CharState{
     WIDLE = 1,
     WALKING = 2,
-    RUNNING = 3
+    RUNNING = 3,
+    PLAYER_MODE = 4,
+    CAR_MODE = 5,
 }
 public class CharController : MonoBehaviour
 {
@@ -13,6 +16,7 @@ public class CharController : MonoBehaviour
     public Animation animation; 
     public float speed = 2;
     Rigidbody r;
+    Collider collider;
     public float raySize = 10;
     bool widle;
 
@@ -20,20 +24,52 @@ public class CharController : MonoBehaviour
 
     public CharState charState;
 
+    public DetectObjects detectObjects;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-        charState = CharState.WIDLE;
+        charState = CharState.PLAYER_MODE;
         r = this.GetComponent<Rigidbody>();
+        collider = this.GetComponent<Collider>();
         animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        switch(charState){
+            case CharState.PLAYER_MODE:
+                playerMode();
+                break;
+            case CharState.CAR_MODE:
+                carMode();
+                break;
+        }
         
+    }
+
+    //estado carro
+    void carMode(){
+        transform.position = detectObjects.car.transform.position;
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            //rouba o carro
+            // transform.position = detectObjects.car.transform.position;
+            charState = CharState.PLAYER_MODE;
+            
+            var positionToGo = transform.position;
+            positionToGo.y = positionToGo.y + 5;
+            transform.position = positionToGo;
+
+            collider.isTrigger = false;
+            detectObjects.car.GetComponent<WheelVehicle>().IsPlayer = false;
+            
+        }
+    }
+    void playerMode(){
         r.velocity = new Vector3(
             Input.GetAxis("Horizontal") * speed * Time.deltaTime,
             0,
@@ -54,13 +90,39 @@ public class CharController : MonoBehaviour
         }
         animator.SetBool("widle", widle);
         
+        verificaEncostandoNoChao();
 
+        carEnter();
+    }
+
+    void verificaEncostandoNoChao(){
         raycast();
 
         if(encostandoNoChao)
             r.useGravity = false;
         else
             r.useGravity = true;
+    }
+
+    //entra no carro
+    void carEnter(){
+         if(detectObjects.car != null){//verifica carro proximo
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                //rouba o carro
+                charState = CharState.CAR_MODE;
+                r.velocity = Vector3.zero;
+                r.useGravity = false;
+                collider.isTrigger = true;
+                //r.detectionCollisions = false;
+                animation.Play("widle");
+
+                var positionToGo = detectObjects.car.transform.position;
+                transform.position = positionToGo;
+
+                detectObjects.car.GetComponent<WheelVehicle>().IsPlayer = true;
+            }
+        }
     }
 
     void rotateChar(){
@@ -120,4 +182,6 @@ public class CharController : MonoBehaviour
             encostandoNoChao = false;
         }
     }
+
+   
 }
