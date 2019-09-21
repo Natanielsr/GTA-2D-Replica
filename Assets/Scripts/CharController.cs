@@ -2,35 +2,95 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CharState{
+    WIDLE = 1,
+    WALKING = 2,
+    RUNNING = 3
+}
 public class CharController : MonoBehaviour
 {
+    Animator animator;
+    public Animation animation; 
     public float speed = 2;
     Rigidbody r;
     public float raySize = 10;
+    bool widle;
 
     public bool encostandoNoChao = false;
+
+    public CharState charState;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
+        charState = CharState.WIDLE;
         r = this.GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
         r.velocity = new Vector3(
             Input.GetAxis("Horizontal") * speed * Time.deltaTime,
             0,
              Input.GetAxis("Vertical") * speed * Time.deltaTime);
 
-             raycast();
+        
+        if(r.velocity != Vector3.zero )
+        {
+            widle = false;
+            animation.Play("walk 1");
+            rotateChar();
+        }
+        else
+        {
+            widle = true;
+            
+            animation.CrossFade("widle");
+        }
+        animator.SetBool("widle", widle);
+        
 
-             if(encostandoNoChao)
-                r.useGravity = false;
-             else
-                r.useGravity = true;
+        raycast();
+
+        if(encostandoNoChao)
+            r.useGravity = false;
+        else
+            r.useGravity = true;
+    }
+
+    void rotateChar(){
+        if(r.velocity.x > 0 && r.velocity.z > 0){
+            transform.eulerAngles = new Vector3(0, 45, 0);
+        }
+        else if(r.velocity.x < 0 && r.velocity.z < 0){
+            transform.eulerAngles = new Vector3(0, -135, 0);
+        }
+         else if(r.velocity.x < 0 && r.velocity.z > 0){
+            transform.eulerAngles = new Vector3(0, -45, 0);
+        }
+         else if(r.velocity.x > 0 && r.velocity.z < 0){
+            transform.eulerAngles = new Vector3(0, 135, 0);
+        }
+        else if(r.velocity.x < 0){
+            transform.eulerAngles = new Vector3(0, -90, 0);
+        }
+        else if(r.velocity.x > 0){
+            transform.eulerAngles = new Vector3(0, 90, 0);
+        }
+        else if(r.velocity.z > 0){
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+        else if(r.velocity.z < 0){
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
+
+
+
     }
 
     void raycast(){
