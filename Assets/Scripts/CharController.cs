@@ -54,7 +54,7 @@ public class CharController : MonoBehaviour
     //estado carro
     void carMode(){
         transform.position = detectObjects.car.transform.position;
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyUp(KeyCode.E))
         {
             //rouba o carro
             // transform.position = detectObjects.car.transform.position;
@@ -74,8 +74,10 @@ public class CharController : MonoBehaviour
             Input.GetAxis("Horizontal") * speed * Time.deltaTime,
             0,
              Input.GetAxis("Vertical") * speed * Time.deltaTime);
+        verificaEncostandoNoChao();
 
         
+
         if(r.velocity != Vector3.zero )
         {
             widle = false;
@@ -85,14 +87,14 @@ public class CharController : MonoBehaviour
         else
         {
             widle = true;
-            
+            animator.SetBool("widle", widle);
             animation.CrossFade("widle");
         }
-        animator.SetBool("widle", widle);
         
-        verificaEncostandoNoChao();
-
         carEnter();
+        
+
+        
     }
 
     void verificaEncostandoNoChao(){
@@ -107,7 +109,7 @@ public class CharController : MonoBehaviour
     //entra no carro
     void carEnter(){
          if(detectObjects.car != null){//verifica carro proximo
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyUp(KeyCode.E))
             {
                 //rouba o carro
                 charState = CharState.CAR_MODE;
