@@ -91,7 +91,10 @@ public class CharController : MonoBehaviour
             animation.CrossFade("widle");
         }
         
-        carEnter();
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            carEnter();
+        }
         
 
         
@@ -109,8 +112,7 @@ public class CharController : MonoBehaviour
     //entra no carro
     void carEnter(){
          if(detectObjects.car != null){//verifica carro proximo
-            if (Input.GetKeyUp(KeyCode.E))
-            {
+            
                 //rouba o carro
                 charState = CharState.CAR_MODE;
                 r.velocity = Vector3.zero;
@@ -123,7 +125,6 @@ public class CharController : MonoBehaviour
                 transform.position = positionToGo;
 
                 detectObjects.car.GetComponent<WheelVehicle>().IsPlayer = true;
-            }
         }
     }
 
