@@ -4,9 +4,6 @@ using UnityEngine;
 using VehicleBehaviour;
 
 public enum CharState{
-    WIDLE = 1,
-    WALKING = 2,
-    RUNNING = 3,
     PLAYER_MODE = 4,
     CAR_MODE = 5,
 }
@@ -71,14 +68,32 @@ public class CharController : MonoBehaviour
     }
     void playerMode(){
         //movimentacao
+        movement();
+        verificaEncostandoNoChao();
+        
+        //animacoes
+        animateChar();
+        //
+        
+        //entrar veiculo
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            enterCar();
+        }
+        
+
+        
+    }
+    
+    void movement(){
         r.velocity = new Vector3(
             Input.GetAxis("Horizontal") * speed * Time.deltaTime,
             0,
              Input.GetAxis("Vertical") * speed * Time.deltaTime);
-        verificaEncostandoNoChao();
-
         
-        //animacoes
+    }
+    
+    void animateChar(){
         if(r.velocity != Vector3.zero )
         {
             widle = false;
@@ -91,16 +106,6 @@ public class CharController : MonoBehaviour
             animator.SetBool("widle", widle);
             animation.CrossFade("widle");
         }
-        //
-        
-        //entrar veiculo
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            enterCar();
-        }
-        
-
-        
     }
 
     void verificaEncostandoNoChao(){
