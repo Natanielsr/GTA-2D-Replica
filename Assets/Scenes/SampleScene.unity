@@ -2172,7 +2172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4790302071202098, guid: cd5e7f64f2260438cb7830953c384a5e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.3
+      value: 2.54
       objectReference: {fileID: 0}
     - target: {fileID: 4790302071202098, guid: cd5e7f64f2260438cb7830953c384a5e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2212,38 +2212,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114466540805545632, guid: cd5e7f64f2260438cb7830953c384a5e,
         type: 3}
-      propertyPath: motorTorque.m_PreInfinity
-      value: 2
+      propertyPath: brakeForce
+      value: 3000
       objectReference: {fileID: 0}
-    - target: {fileID: 114466540805545632, guid: cd5e7f64f2260438cb7830953c384a5e,
+    - target: {fileID: 54726730266023392, guid: cd5e7f64f2260438cb7830953c384a5e,
         type: 3}
-      propertyPath: motorTorque.m_Curve.Array.data[0].value
-      value: 1005.0386
-      objectReference: {fileID: 0}
-    - target: {fileID: 114466540805545632, guid: cd5e7f64f2260438cb7830953c384a5e,
-        type: 3}
-      propertyPath: motorTorque.m_Curve.Array.data[0].time
-      value: -4.031519
-      objectReference: {fileID: 0}
-    - target: {fileID: 114466540805545632, guid: cd5e7f64f2260438cb7830953c384a5e,
-        type: 3}
-      propertyPath: motorTorque.m_Curve.Array.data[1].time
-      value: 46.4953
-      objectReference: {fileID: 0}
-    - target: {fileID: 114466540805545632, guid: cd5e7f64f2260438cb7830953c384a5e,
-        type: 3}
-      propertyPath: motorTorque.m_Curve.Array.data[1].value
-      value: 1004.1104
-      objectReference: {fileID: 0}
-    - target: {fileID: 114466540805545632, guid: cd5e7f64f2260438cb7830953c384a5e,
-        type: 3}
-      propertyPath: motorTorque.m_Curve.Array.data[2].value
-      value: -15.790522
-      objectReference: {fileID: 0}
-    - target: {fileID: 114466540805545632, guid: cd5e7f64f2260438cb7830953c384a5e,
-        type: 3}
-      propertyPath: motorTorque.m_Curve.Array.data[2].time
-      value: 467.8985
+      propertyPath: m_Mass
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd5e7f64f2260438cb7830953c384a5e, type: 3}
@@ -2628,25 +2603,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1973112342 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1366243911189104, guid: cd5e7f64f2260438cb7830953c384a5e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1743348434}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1973112343
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1973112342}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.69, y: 1.59, z: 3.2}
-  m_Center: {x: 0, y: 0.31, z: 0}
 --- !u!1001 &1974123213
 PrefabInstance:
   m_ObjectHideFlags: 0
