@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using VehicleBehaviour;
@@ -70,6 +70,7 @@ public class CharController : MonoBehaviour
         }
     }
     void playerMode(){
+        //movimentacao
         r.velocity = new Vector3(
             Input.GetAxis("Horizontal") * speed * Time.deltaTime,
             0,
@@ -77,7 +78,7 @@ public class CharController : MonoBehaviour
         verificaEncostandoNoChao();
 
         
-
+        //animacoes
         if(r.velocity != Vector3.zero )
         {
             widle = false;
@@ -90,10 +91,12 @@ public class CharController : MonoBehaviour
             animator.SetBool("widle", widle);
             animation.CrossFade("widle");
         }
+        //
         
+        //entrar veiculo
         if (Input.GetKeyUp(KeyCode.E))
         {
-            carEnter();
+            enterCar();
         }
         
 
@@ -101,7 +104,7 @@ public class CharController : MonoBehaviour
     }
 
     void verificaEncostandoNoChao(){
-        raycast();
+        encostandoNoChao = raycast();
 
         if(encostandoNoChao)
             r.useGravity = false;
@@ -110,7 +113,7 @@ public class CharController : MonoBehaviour
     }
 
     //entra no carro
-    void carEnter(){
+    void enterCar(){
          if(detectObjects.car != null){//verifica carro proximo
             
                 //rouba o carro
@@ -158,10 +161,12 @@ public class CharController : MonoBehaviour
 
     }
 
-    void raycast(){
+    bool raycast(){
         // Bit shift the index of the layer (8) to get a bit mask
         int layerMask = 1 << 8;
-
+        
+        var _encostandoNoChao = false;
+        
         // This would cast rays only against colliders in layer 8.
         // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
         layerMask = ~layerMask;
@@ -176,14 +181,18 @@ public class CharController : MonoBehaviour
              transform.TransformDirection(Vector3.down) * hit.distance,
               Color.red);
             //Debug.Log("Did Hit");
-            encostandoNoChao = true;
+            _encostandoNoChao = true;
         }
         else
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * raySize, Color.green);
             //Debug.Log("Did not Hit");
-            encostandoNoChao = false;
+            _encostandoNoChao = false;
         }
+        
+        return _encostandoNoChao;
+        
+        
     }
 
    
