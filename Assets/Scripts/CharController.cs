@@ -4,6 +4,7 @@ using UnityEngine;
 using VehicleBehaviour;
 
 public enum CharState{
+    NONE = 0,
     PLAYER_MODE = 4,
     CAR_MODE = 5,
 }
@@ -28,7 +29,7 @@ public class CharController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        charState = CharState.PLAYER_MODE;
+       // charState = CharState.NONE;
         r = this.GetComponent<Rigidbody>();
         collider = this.GetComponent<Collider>();
         animator = GetComponent<Animator>();
@@ -46,6 +47,14 @@ public class CharController : MonoBehaviour
                 break;
         }
         
+    }
+
+    void LateUpdate()
+    {
+
+        //animacoes
+        animateChar();
+        //
     }
 
     //estado carro
@@ -71,9 +80,7 @@ public class CharController : MonoBehaviour
         movement();
         verificaEncostandoNoChao();
         
-        //animacoes
-        animateChar();
-        //
+        
         
         //entrar veiculo
         if (Input.GetKeyUp(KeyCode.E))
@@ -88,24 +95,30 @@ public class CharController : MonoBehaviour
     void movement(){
         r.velocity = new Vector3(
             Input.GetAxis("Horizontal") * speed * Time.deltaTime,
-            0,
+            r.velocity.y,
              Input.GetAxis("Vertical") * speed * Time.deltaTime);
         
     }
     
     void animateChar(){
-        if(r.velocity != Vector3.zero )
+        if (charState == CharState.PLAYER_MODE)
         {
-            widle = false;
-            animation.Play("walk 1");
+            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            {
+                widle = false;
+                animation.Play("walk 1");
+
+            }
+            else
+            {
+                widle = true;
+                animator.SetBool("widle", widle);
+                animation.CrossFade("widle");
+            }
             rotateChar();
         }
-        else
-        {
-            widle = true;
-            animator.SetBool("widle", widle);
-            animation.CrossFade("widle");
-        }
+
+        
     }
 
     void verificaEncostandoNoChao(){
@@ -137,28 +150,28 @@ public class CharController : MonoBehaviour
     }
 
     void rotateChar(){
-        if(r.velocity.x > 0 && r.velocity.z > 0){
+        if(Input.GetAxis("Horizontal") > 0 && Input.GetAxis("Vertical") > 0){
             transform.eulerAngles = new Vector3(0, 45, 0);
         }
-        else if(r.velocity.x < 0 && r.velocity.z < 0){
+        else if(Input.GetAxis("Horizontal") < 0 && Input.GetAxis("Vertical") < 0){
             transform.eulerAngles = new Vector3(0, -135, 0);
         }
-         else if(r.velocity.x < 0 && r.velocity.z > 0){
+         else if(Input.GetAxis("Horizontal") < 0 && Input.GetAxis("Vertical") > 0){
             transform.eulerAngles = new Vector3(0, -45, 0);
         }
-         else if(r.velocity.x > 0 && r.velocity.z < 0){
+         else if(Input.GetAxis("Horizontal") > 0 && Input.GetAxis("Vertical") < 0){
             transform.eulerAngles = new Vector3(0, 135, 0);
         }
-        else if(r.velocity.x < 0){
+        else if(Input.GetAxis("Horizontal") < 0){
             transform.eulerAngles = new Vector3(0, -90, 0);
         }
-        else if(r.velocity.x > 0){
+        else if(Input.GetAxis("Horizontal") > 0){
             transform.eulerAngles = new Vector3(0, 90, 0);
         }
-        else if(r.velocity.z > 0){
+        else if(Input.GetAxis("Vertical") > 0){
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
-        else if(r.velocity.z < 0){
+        else if(Input.GetAxis("Vertical") < 0){
             transform.eulerAngles = new Vector3(0, 180, 0);
         }
 
