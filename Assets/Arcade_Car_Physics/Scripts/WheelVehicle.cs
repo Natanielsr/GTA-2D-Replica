@@ -364,5 +364,13 @@ namespace VehicleBehaviour {
         return Input.GetAxis(input);
 #endif
         }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            var go = collision.gameObject;
+            if (go.tag == "citizen") {
+                go.GetComponent<dieScript>().Die();
+            }
+        }
     }
 }

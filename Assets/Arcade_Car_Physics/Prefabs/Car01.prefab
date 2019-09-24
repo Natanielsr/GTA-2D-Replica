@@ -10130,7 +10130,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   diffGearing: 10
-  brakeForce: 1500
+  brakeForce: 3000
   steerAngle: 30
   steerSpeed: 0.2
   jumpVel: 1.1

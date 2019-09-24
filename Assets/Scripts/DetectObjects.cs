@@ -36,7 +36,7 @@ public class DetectObjects : MonoBehaviour
     {
         //Debug.Log(collider);
         if(collider.gameObject.tag == "car"){
-            Debug.Log("car");
+            //Debug.Log("car");
             car = collider.gameObject;
         }
     }

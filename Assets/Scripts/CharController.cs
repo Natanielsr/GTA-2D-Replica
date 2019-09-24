@@ -11,19 +11,26 @@ public enum CharState{
 public class CharController : MonoBehaviour
 {
     Animator animator;
-    public Animation animation; 
-    public float speed = 2;
+    public Animation animation;
     Rigidbody r;
     Collider collider;
+    AudioSource audioSource;
+
+    public float speed = 2;
+    
     public float raySize = 10;
     bool widle;
 
-    public bool encostandoNoChao = false;
+    public bool grounded = false;
+    public float footPosY = 1f;
+    public float footRadius = 1f;
+    private Vector3 posFoot; 
 
     public CharState charState;
 
     public DetectObjects detectObjects;
 
+    bool walking;
 
 
     // Start is called before the first frame update
@@ -33,10 +40,21 @@ public class CharController : MonoBehaviour
         r = this.GetComponent<Rigidbody>();
         collider = this.GetComponent<Collider>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
+    {
+        if (charState == CharState.PLAYER_MODE)
+        {
+            //movimentacao
+            movement();
+        }
+
+    }
+    void Update()
     {
         switch(charState){
             case CharState.PLAYER_MODE:
@@ -46,14 +64,18 @@ public class CharController : MonoBehaviour
                 carMode();
                 break;
         }
-        
+
+
+        posFoot = transform.position;
+        posFoot.y += footPosY;
+
     }
 
     void LateUpdate()
     {
 
         //animacoes
-        animateChar();
+        steticChar();
         //
     }
 
@@ -70,25 +92,22 @@ public class CharController : MonoBehaviour
             positionToGo.y = positionToGo.y + 5;
             transform.position = positionToGo;
 
+
             collider.isTrigger = false;
+            r.useGravity = true;
             detectObjects.car.GetComponent<WheelVehicle>().IsPlayer = false;
             
         }
     }
     void playerMode(){
-        //movimentacao
-        movement();
+        
         verificaEncostandoNoChao();
-        
-        
         
         //entrar veiculo
         if (Input.GetKeyUp(KeyCode.E))
         {
             enterCar();
         }
-        
-
         
     }
     
@@ -100,13 +119,14 @@ public class CharController : MonoBehaviour
         
     }
     
-    void animateChar(){
+    void steticChar(){
         if (charState == CharState.PLAYER_MODE)
         {
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             {
                 widle = false;
                 animation.Play("walk 1");
+                audioSource.enabled = true;
 
             }
             else
@@ -114,20 +134,24 @@ public class CharController : MonoBehaviour
                 widle = true;
                 animator.SetBool("widle", widle);
                 animation.CrossFade("widle");
+                audioSource.enabled = false;
             }
             rotateChar();
+        }
+        else {
+            audioSource.enabled = false;
         }
 
         
     }
 
     void verificaEncostandoNoChao(){
-        encostandoNoChao = raycast();
+        grounded = isGrounded();
 
-        if(encostandoNoChao)
-            r.useGravity = false;
-        else
-            r.useGravity = true;
+       // if(grounded)
+      //      r.useGravity = false;
+      //  else
+        //    r.useGravity = true;
     }
 
     //entra no carro
@@ -179,39 +203,33 @@ public class CharController : MonoBehaviour
 
     }
 
-    bool raycast(){
-        // Bit shift the index of the layer (8) to get a bit mask
-        int layerMask = 1 << 8;
-        
-        var _encostandoNoChao = false;
-        
-        // This would cast rays only against colliders in layer 8.
-        // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
-        layerMask = ~layerMask;
+    bool isGrounded(){
 
-        RaycastHit hit;
-        // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position,
-         transform.TransformDirection(Vector3.down),
-          out hit, raySize))
+        var hitColliders = Physics.OverlapSphere(posFoot, footRadius);
+        if(hitColliders.Length > 0)
         {
-            Debug.DrawRay(transform.position,
-             transform.TransformDirection(Vector3.down) * hit.distance,
-              Color.red);
-            //Debug.Log("Did Hit");
-            _encostandoNoChao = true;
+            foreach (var col in hitColliders) {
+                if (col.gameObject.tag != "Player") {
+                    //Debug.Log(hitColliders);
+                    return true;
+                }
+            }
+           
         }
-        else
-        {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * raySize, Color.green);
-            //Debug.Log("Did not Hit");
-            _encostandoNoChao = false;
-        }
-        
-        return _encostandoNoChao;
+
+        return false;
         
         
     }
 
-   
+    void OnDrawGizmosSelected()
+    {
+        // Draw a yellow sphere at the transform's position
+        Color newColor = new Color(0.3f, 0.4f, 0.6f, 0.75f);
+
+        Gizmos.color = newColor;
+        Gizmos.DrawSphere(posFoot, footRadius);
+    }
+
+
 }
