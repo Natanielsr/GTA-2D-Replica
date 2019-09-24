@@ -90,6 +90,11 @@ GameObject:
   - component: {fileID: 478555265}
   - component: {fileID: 478555266}
   - component: {fileID: 478555267}
+  - component: {fileID: 1310262324}
+  - component: {fileID: 1310262325}
+  - component: {fileID: 1310262327}
+  - component: {fileID: 1310262326}
+  - component: {fileID: 3604193655587006778}
   m_Layer: 0
   m_Name: road14bisbis
   m_TagString: Untagged
@@ -151,3 +156,68 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 40.9, y: 1, z: 73.7}
   m_Center: {x: 0, y: 0.54, z: 0}
+--- !u!65 &1310262324
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133373708014967006}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.12, y: 2.64, z: 27.4}
+  m_Center: {x: 20.11, y: 0.73, z: -23.3}
+--- !u!65 &1310262325
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133373708014967006}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.12, y: 2.64, z: 27.4}
+  m_Center: {x: -20, y: 0.73, z: -23.3}
+--- !u!65 &1310262327
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133373708014967006}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.12, y: 2.64, z: 27.4}
+  m_Center: {x: 20.11, y: 0.73, z: 23.38}
+--- !u!65 &1310262326
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133373708014967006}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.12, y: 2.64, z: 27.4}
+  m_Center: {x: -20, y: 0.73, z: 23.2}
+--- !u!65 &3604193655587006778
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133373708014967006}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.12, y: 2.64, z: 13.22}
+  m_Center: {x: 0.09, y: 0.73, z: -31.2}

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using VehicleBehaviour;
 
-public enum CharState{
+public enum PlayerState{
     NONE = 0,
     PLAYER_MODE = 4,
     CAR_MODE = 5,
 }
-public class CharController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     Animator animator;
     public Animation animation;
@@ -26,7 +26,7 @@ public class CharController : MonoBehaviour
     public float footRadius = 1f;
     private Vector3 posFoot; 
 
-    public CharState charState;
+    public PlayerState playerState;
 
     public DetectObjects detectObjects;
 
@@ -41,13 +41,13 @@ public class CharController : MonoBehaviour
         collider = this.GetComponent<Collider>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-
+        playerState = PlayerState.PLAYER_MODE;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (charState == CharState.PLAYER_MODE)
+        if (playerState == PlayerState.PLAYER_MODE)
         {
             //movimentacao
             movement();
@@ -56,11 +56,11 @@ public class CharController : MonoBehaviour
     }
     void Update()
     {
-        switch(charState){
-            case CharState.PLAYER_MODE:
+        switch(playerState){
+            case PlayerState.PLAYER_MODE:
                 playerMode();
                 break;
-            case CharState.CAR_MODE:
+            case PlayerState.CAR_MODE:
                 carMode();
                 break;
         }
@@ -86,7 +86,7 @@ public class CharController : MonoBehaviour
         {
             //rouba o carro
             // transform.position = detectObjects.car.transform.position;
-            charState = CharState.PLAYER_MODE;
+            playerState = PlayerState.PLAYER_MODE;
             
             var positionToGo = transform.position;
             positionToGo.y = positionToGo.y + 5;
@@ -120,7 +120,7 @@ public class CharController : MonoBehaviour
     }
     
     void steticChar(){
-        if (charState == CharState.PLAYER_MODE)
+        if (playerState == PlayerState.PLAYER_MODE)
         {
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             {
@@ -159,7 +159,7 @@ public class CharController : MonoBehaviour
          if(detectObjects.car != null){//verifica carro proximo
             
                 //rouba o carro
-                charState = CharState.CAR_MODE;
+                playerState = PlayerState.CAR_MODE;
                 r.velocity = Vector3.zero;
                 r.useGravity = false;
                 collider.isTrigger = true;
