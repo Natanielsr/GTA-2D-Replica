@@ -369,8 +369,9 @@ namespace VehicleBehaviour {
         private void OnTriggerEnter(Collider collision)
         {
             var go = collision.gameObject;
-            if (go.tag == "citizen" && Speed > 25) {
-                go.GetComponent<CitizenBehaviour>().Die();
+            if (go.tag == "citizen" ) {
+                if(Speed > 50 || Speed < -50)
+                    go.GetComponent<CitizenBehaviour>().Die();
             }
         }
     }
