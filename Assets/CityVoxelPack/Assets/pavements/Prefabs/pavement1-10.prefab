@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 664630144483340838}
   - component: {fileID: 914842279}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: pavement1-10
-  m_TagString: Untagged
+  m_TagString: pavment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,7 +43,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10.24, y: 1.98, z: 10.24}
+  m_Size: {x: 10, y: 2, z: 10}
   m_Center: {x: 0, y: 1.03, z: 0}
 --- !u!1 &8320170578634156388
 GameObject:
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 6793452358591582}
   - component: {fileID: 5646381731123000077}
   - component: {fileID: 739557076900308466}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: pavement1-10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
