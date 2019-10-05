@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carNearly: {fileID: 0}
-  MaxDistanceToCar: 10
+  MaxDistanceToCar: 20
 --- !u!136 &3782828303393330078
 CapsuleCollider:
   m_ObjectHideFlags: 0

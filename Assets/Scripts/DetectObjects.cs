@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DetectObjects : MonoBehaviour
 {
-    public GameObject carNearly;
+    public GameObject carNearby;
     public float MaxDistanceToCar = 10;
     float distanceToCar;
     
@@ -31,24 +31,24 @@ public class DetectObjects : MonoBehaviour
                 distanceToCar = Vector3.Distance(car.transform.position, transform.position);
                 if (distanceToCar < moreNearly)
                 {
-                    carNearly = car;
+                    carNearby = car;
                     moreNearly = distanceToCar;
                 }
             }
 
             Debug.DrawRay(
                       transform.position,
-                      carNearly.transform.position - transform.position,
+                      carNearby.transform.position - transform.position,
                       Color.red);
 
         }
         else
         {
-            carNearly = null;
+            carNearby = null;
         }
 
 
-        return carNearly;
+        return carNearby;
     }
 
     GameObject DetectObject(string tag) {

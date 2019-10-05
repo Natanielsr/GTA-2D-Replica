@@ -94,7 +94,7 @@ public abstract class CharacterBase : MonoBehaviour
     {
         //do
 
-        transform.position = detectObjects.carNearly.transform.position;
+        transform.position = detectObjects.carNearby.transform.position;
 
         CarMode();
     }
@@ -108,19 +108,27 @@ public abstract class CharacterBase : MonoBehaviour
     //entra no carro
     protected void enterCar()
     {
-        if (detectObjects.carNearly != null)
+        
+        if (detectObjects.carNearby != null )
         {//verifica carro proximo
+            var car = detectObjects.carNearby.GetComponent<WheelVehicle>();
+            if (car.GetCarOwner() == null)
+            {
+                //entra no carro
+                CharMode = CharacterMode.CAR_MODE;
+                rigidbody.velocity = Vector3.zero;
+                rigidbody.useGravity = false;
+                collider.isTrigger = true;
 
-            //entra no carro
-            CharMode = CharacterMode.CAR_MODE;
-            rigidbody.velocity = Vector3.zero;
-            rigidbody.useGravity = false;
-            collider.isTrigger = true;
+                var positionToGo = detectObjects.carNearby.transform.position;
+                transform.position = positionToGo;
+                transform.rotation = detectObjects.carNearby.transform.rotation;
 
-            var positionToGo = detectObjects.carNearly.transform.position;
-            transform.position = positionToGo;
+                //detectObjects.carNearby.GetComponent<WheelVehicle>().IsPlayer = true;
 
-            detectObjects.carNearly.GetComponent<WheelVehicle>().IsPlayer = true;
+
+                car.SetCarOwner(this);
+            }
         }
     }
 
@@ -135,7 +143,10 @@ public abstract class CharacterBase : MonoBehaviour
 
         collider.isTrigger = false;
         rigidbody.useGravity = true;
-        detectObjects.carNearly.GetComponent<WheelVehicle>().IsPlayer = false;
+        // detectObjects.carNearby.GetComponent<WheelVehicle>().IsPlayer = false;
+
+        var car = detectObjects.carNearby.GetComponent<WheelVehicle>();
+        car.ResetCarOwner();
     }
 
     public void Die() {

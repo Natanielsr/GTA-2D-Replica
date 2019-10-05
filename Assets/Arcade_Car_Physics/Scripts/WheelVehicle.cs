@@ -32,6 +32,8 @@ namespace VehicleBehaviour {
         [SerializeField] string jumpInput = "Jump";
         [SerializeField] string driftInput = "Drift";
 	    [SerializeField] string boostInput = "Boost";
+
+        private CharacterBase CarOwner;
         
         /* 
          *  Turn input curve: x real input, y value used
@@ -373,6 +375,21 @@ namespace VehicleBehaviour {
                 if(Speed > 50 || Speed < -50)
                     go.GetComponent<CitizenBehaviour>().Die();
             }
+        }
+
+        public void SetCarOwner(CharacterBase Char) {
+            if(this.CarOwner == null)
+                this.CarOwner = Char;
+        }
+
+        public CharacterBase GetCarOwner()
+        {
+            return this.CarOwner;
+        }
+
+        public void ResetCarOwner()
+        {
+            this.CarOwner = null;
         }
     }
 }

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using VehicleBehaviour;
 
 public class CitizenBehaviour : CharacterBase
 {
     public GameObject Graphics;
     public GameObject Ragdoll;
     
-    public Transform PositionToGo;
+    public Transform RandomPositionToGo;
 
     NavMeshAgent navMesh;
    
@@ -21,16 +21,26 @@ public class CitizenBehaviour : CharacterBase
 
     public GameObject Suit;
 
+    public float RunZ;
+
+    public FieldOfView fieldOfView;
+
+    GameObject car;
+
+    private void Awake()
+    {
+        animator.SetBool("Grounded", true);
+    }
     // Start is called before the first frame update
     protected override void _start()
     {
         navMesh = GetComponent<NavMeshAgent>();
         randPosition();
 
-        animator.SetBool("Grounded", true);
+        
 
         TimeToThink = Random.Range(0, 10);
-        navMesh.speed = Random.Range(4, 5);
+        navMesh.speed = Random.Range(2.0f, 5.0f);
         
 
         //Get the Renderer component from the new cube
@@ -51,12 +61,9 @@ public class CitizenBehaviour : CharacterBase
 
         var rand = Random.Range(0, pavs.Length);
 
-        PositionToGo = pavs[rand].transform;
-
-        if (CharState == CharacterState.ALIVE)
-        {
-            navMesh.SetDestination(PositionToGo.position);
-        }
+        RandomPositionToGo = pavs[rand].transform;
+        
+        navMesh.SetDestination(RandomPositionToGo.position);
     }
 
     // Update is called once per frame
@@ -69,18 +76,56 @@ public class CitizenBehaviour : CharacterBase
     {
         if (CharState == CharacterState.ALIVE)
         {
-            var d = Vector3.Distance(PositionToGo.position, transform.position);
-            // Debug.Log(d);
-            if (d < 3)
+            if (fieldOfView.FindVisibleTargetByTag("Player") != null)
             {
-                TimeToThink -= Time.deltaTime;
-                if (TimeToThink < 0)
-                {
-                    TimeToThink = Random.Range(0, 10);
-                    navMesh.speed = Random.Range(4, 5);
-                    randPosition();
-                }
+                Debug.Log("> ..." + this.gameObject.name + " view the player ...");
+                
             }
+            else {
+              //  Debug.Log("...");
+            }
+
+            if (CharMode.Equals(CharacterMode.WALKING_MODE)){
+                car = fieldOfView.FindVisibleTargetByTag("car");
+
+                if (car != null)
+                {
+                    // viu o carro
+                    var carScript = car.GetComponent<WheelVehicle>();
+                    if (carScript.GetCarOwner() == null)
+                    {
+                        Debug.Log(carScript.GetCarOwner());
+                        //carro nao tem dono
+                        navMesh.speed = 10f;
+                        navMesh.SetDestination(car.transform.position);
+                        if (detectObjects.carNearby != null)
+                        {
+                            enterCar();
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log(carScript.GetCarOwner());
+                        navMesh.speed = 5f;
+                        //carro tem dono
+                        // car = fieldOfView.FindVisibleTargetByTag("car");
+                        // navMesh.isStopped = true;
+                        
+                        walkRandomPosition();
+                    }
+
+                }
+                else {
+                   
+                   
+                    walkRandomPosition();
+                }
+                
+            }
+
+            Debug.ClearDeveloperConsole();
+
+            
         }
         else if (CharState == CharacterState.DEAD)
         {
@@ -88,6 +133,25 @@ public class CitizenBehaviour : CharacterBase
             if (TimeToDestroy < 0)
             {
                 Destroy(this.gameObject);
+            }
+        }
+
+        RunZ = animator.GetFloat("RunZ");
+    }
+
+    void walkRandomPosition() {
+        navMesh.SetDestination(RandomPositionToGo.position);
+        var d = Vector3.Distance(RandomPositionToGo.position, transform.position);
+        
+        // Debug.Log(d);
+        if (d < 3)
+        {
+            TimeToThink -= Time.deltaTime;
+            if (TimeToThink < 0)
+            {
+                TimeToThink = Random.Range(1.0f, 3.0f);
+                navMesh.speed = Random.Range(2.0f, 5.0f);
+                randPosition();
             }
         }
     }
@@ -127,8 +191,8 @@ public class CitizenBehaviour : CharacterBase
         Color newColor = new Color(1f, 1f, 1f, 1f);
 
         Gizmos.color = newColor;
-        if(PositionToGo != null)
-            Gizmos.DrawSphere(PositionToGo.position, 1);
+        if(RandomPositionToGo != null)
+            Gizmos.DrawSphere(RandomPositionToGo.position, 1);
     }
 
 }
