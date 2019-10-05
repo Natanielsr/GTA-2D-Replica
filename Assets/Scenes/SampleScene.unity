@@ -5502,7 +5502,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 43.5, z: 0}
+  m_LocalPosition: {x: 0, y: 60, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5521,6 +5521,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1294507575}
+  MinPosYCam: 40
+  MaxPosYCam: 70
+  movingCamera: 0
+  speed: 4
 --- !u!1001 &967849449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7175,6 +7179,10 @@ PrefabInstance:
     - target: {fileID: 255, guid: 7279d9789ca336541b6bb060bb811dce, type: 3}
       propertyPath: m_Name
       value: Citizen
+      objectReference: {fileID: 0}
+    - target: {fileID: 255, guid: 7279d9789ca336541b6bb060bb811dce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 533, guid: 7279d9789ca336541b6bb060bb811dce, type: 3}
       propertyPath: m_LocalPosition.x

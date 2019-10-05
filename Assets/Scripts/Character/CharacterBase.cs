@@ -124,10 +124,13 @@ public abstract class CharacterBase : MonoBehaviour
                 transform.position = positionToGo;
                 transform.rotation = detectObjects.carNearby.transform.rotation;
 
-                //detectObjects.carNearby.GetComponent<WheelVehicle>().IsPlayer = true;
+                //
 
 
                 car.SetCarOwner(this);
+                if (car.GetCarOwner().gameObject.tag == "Player") {
+                    car.IsPlayer = true;
+                }
             }
         }
     }
@@ -146,6 +149,10 @@ public abstract class CharacterBase : MonoBehaviour
         // detectObjects.carNearby.GetComponent<WheelVehicle>().IsPlayer = false;
 
         var car = detectObjects.carNearby.GetComponent<WheelVehicle>();
+        if (car.GetCarOwner().gameObject.tag == "Player")
+        {
+            car.IsPlayer = false;
+        }
         car.ResetCarOwner();
     }
 
@@ -203,6 +210,11 @@ public abstract class CharacterBase : MonoBehaviour
     protected virtual void _update() { }
 
 
+    public WheelVehicle GetCar()
+    {
+        var c = detectObjects.carNearby.GetComponent<WheelVehicle>();
 
+        return c;
+    }
 
 }

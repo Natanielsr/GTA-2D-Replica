@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using VehicleBehaviour;
 
 public class PlayerController : CharacterBase
 {
@@ -117,6 +117,8 @@ public class PlayerController : CharacterBase
 
 
     }
+
+    
 
     protected override void base_die()
     {

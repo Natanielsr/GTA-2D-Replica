@@ -17,7 +17,8 @@ public class CitizenBehaviour : CharacterBase
 
     public float TimeToDestroy = 60;
 
-    private float TimeToThink;
+    public float TimeToThink = 3.0f;
+    private float timeToThink;
 
     public GameObject Suit;
 
@@ -26,6 +27,8 @@ public class CitizenBehaviour : CharacterBase
     public FieldOfView fieldOfView;
 
     GameObject car;
+
+    public bool VagabundoBandidoPilantra = false;
 
     private void Awake()
     {
@@ -39,8 +42,8 @@ public class CitizenBehaviour : CharacterBase
 
         
 
-        TimeToThink = Random.Range(0, 10);
-        navMesh.speed = Random.Range(2.0f, 5.0f);
+        timeToThink = RandThink();
+        navMesh.speed = RandSpeed();
         
 
         //Get the Renderer component from the new cube
@@ -74,15 +77,8 @@ public class CitizenBehaviour : CharacterBase
 
     protected override void _update()
     {
-        if (CharState == CharacterState.ALIVE)
-        {
-           
-            if (CharMode.Equals(CharacterMode.WALKING_MODE)){
-                
-            }
-            
-        }
-        else if (CharState == CharacterState.DEAD)
+       
+        if (CharState == CharacterState.DEAD)
         {
             TimeToDestroy -= Time.deltaTime;
             if (TimeToDestroy < 0)
@@ -104,17 +100,18 @@ public class CitizenBehaviour : CharacterBase
                     case CharacterMode.NONE:
                         break;
                     case CharacterMode.WALKING_MODE:
-                        if (g.tag == "car")
+                        if (g.tag == "car" && VagabundoBandidoPilantra)
                         {
                             var carScript = g.GetComponent<WheelVehicle>();
                             if (carScript.GetCarOwner() != null)
                             {
-                                navMesh.speed = 5f;
+                                navMesh.speed = RandSpeed();
                                 navMesh.SetDestination(RandomPositionToGo.position);
-                               
+
                             }
                             else
                             {
+                                //carro esta vazio
                                 navMesh.speed = 10f;
                                 navMesh.SetDestination(g.transform.position);
                                 if (detectObjects.carNearby != null)
@@ -122,6 +119,9 @@ public class CitizenBehaviour : CharacterBase
                                     enterCar();
                                 }
                             }
+                        }
+                        else {
+                            walkRandomPosition();
                         }
 
                         break;
@@ -140,6 +140,14 @@ public class CitizenBehaviour : CharacterBase
         
     }
 
+    float RandSpeed() {
+        return Random.Range(2.0f, 5.0f);
+    }
+
+    float RandThink() {
+        return Random.Range(1.0f, TimeToThink);
+    }
+
     void walkRandomPosition() {
         
         var d = Vector3.Distance(RandomPositionToGo.position, transform.position);
@@ -147,11 +155,11 @@ public class CitizenBehaviour : CharacterBase
         // Debug.Log(d);
         if (d < 3)
         {
-            TimeToThink -= Time.deltaTime;
-            if (TimeToThink < 0)
+            timeToThink -= Time.deltaTime;
+            if (timeToThink < 0)
             {
-                TimeToThink = Random.Range(1.0f, 3.0f);
-                navMesh.speed = Random.Range(2.0f, 5.0f);
+                timeToThink = RandThink();
+                navMesh.speed = RandSpeed();
                 randPosition();
             }
         }
