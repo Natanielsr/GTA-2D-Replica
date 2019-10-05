@@ -7220,10 +7220,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 38930045, guid: 7279d9789ca336541b6bb060bb811dce, type: 3}
-      propertyPath: viewAngle
-      value: 135
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7279d9789ca336541b6bb060bb811dce, type: 3}
 --- !u!1 &1264280266
@@ -7688,7 +7684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1368303602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7702,7 +7698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabCitizen: {fileID: 255, guid: 7279d9789ca336541b6bb060bb811dce, type: 3}
-  numberOfCitizen: 40
+  numberOfCitizen: 20
   citizens: []
 --- !u!4 &1368303603
 Transform:

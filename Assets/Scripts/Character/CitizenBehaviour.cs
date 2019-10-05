@@ -76,55 +76,10 @@ public class CitizenBehaviour : CharacterBase
     {
         if (CharState == CharacterState.ALIVE)
         {
-            if (fieldOfView.FindVisibleTargetByTag("Player") != null)
-            {
-                Debug.Log("> ..." + this.gameObject.name + " view the player ...");
-                
-            }
-            else {
-              //  Debug.Log("...");
-            }
-
+           
             if (CharMode.Equals(CharacterMode.WALKING_MODE)){
-                car = fieldOfView.FindVisibleTargetByTag("car");
-
-                if (car != null)
-                {
-                    // viu o carro
-                    var carScript = car.GetComponent<WheelVehicle>();
-                    if (carScript.GetCarOwner() == null)
-                    {
-                        Debug.Log(carScript.GetCarOwner());
-                        //carro nao tem dono
-                        navMesh.speed = 10f;
-                        navMesh.SetDestination(car.transform.position);
-                        if (detectObjects.carNearby != null)
-                        {
-                            enterCar();
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log(carScript.GetCarOwner());
-                        navMesh.speed = 5f;
-                        //carro tem dono
-                        // car = fieldOfView.FindVisibleTargetByTag("car");
-                        // navMesh.isStopped = true;
-                        
-                        walkRandomPosition();
-                    }
-
-                }
-                else {
-                   
-                   
-                    walkRandomPosition();
-                }
                 
             }
-
-            Debug.ClearDeveloperConsole();
-
             
         }
         else if (CharState == CharacterState.DEAD)
@@ -139,8 +94,54 @@ public class CitizenBehaviour : CharacterBase
         RunZ = animator.GetFloat("RunZ");
     }
 
+    public void ReceiveViewObj(GameObject g) {
+
+        switch (CharState)
+        {
+            case CharacterState.ALIVE:
+                switch (CharMode)
+                {
+                    case CharacterMode.NONE:
+                        break;
+                    case CharacterMode.WALKING_MODE:
+                        if (g.tag == "car")
+                        {
+                            var carScript = g.GetComponent<WheelVehicle>();
+                            if (carScript.GetCarOwner() != null)
+                            {
+                                navMesh.speed = 5f;
+                                navMesh.SetDestination(RandomPositionToGo.position);
+                               
+                            }
+                            else
+                            {
+                                navMesh.speed = 10f;
+                                navMesh.SetDestination(g.transform.position);
+                                if (detectObjects.carNearby != null)
+                                {
+                                    enterCar();
+                                }
+                            }
+                        }
+
+                        break;
+                    case CharacterMode.CAR_MODE:
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case CharacterState.DEAD:
+                break;
+            default:
+                break;
+        }
+
+        
+    }
+
     void walkRandomPosition() {
-        navMesh.SetDestination(RandomPositionToGo.position);
+        
         var d = Vector3.Distance(RandomPositionToGo.position, transform.position);
         
         // Debug.Log(d);

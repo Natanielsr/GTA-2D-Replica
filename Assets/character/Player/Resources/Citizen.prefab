@@ -3053,7 +3053,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71f8decc7e9bb064399ecf8f630c99c5, type: 3}
   m_Name: 
@@ -6190,6 +6190,7 @@ MonoBehaviour:
   nearbyTargets: []
   meshResolution: 1
   viewMeshFilter: {fileID: 3588970447598813271}
+  citizenBehaviour: {fileID: 475271914}
 --- !u!1 &5175466485886339610
 GameObject:
   m_ObjectHideFlags: 0
@@ -6207,7 +6208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6413074363447708359
 Transform:
   m_ObjectHideFlags: 0

@@ -18,12 +18,13 @@ public class FieldOfView : MonoBehaviour
     public MeshFilter viewMeshFilter;
     Mesh viewMesh;
 
+    public CitizenBehaviour citizenBehaviour;
+
     private void Start()
     {
         viewMesh = new Mesh();
         viewMesh.name = "View Mesh";
         viewMeshFilter.mesh = viewMesh;
-
         StartCoroutine("FindTargetsWithDelay", .2f);
     }
 
@@ -56,6 +57,7 @@ public class FieldOfView : MonoBehaviour
 
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask)) {
                     visibleTargets.Add(target);
+                    citizenBehaviour.ReceiveViewObj(target);
                 }
             }
         }
