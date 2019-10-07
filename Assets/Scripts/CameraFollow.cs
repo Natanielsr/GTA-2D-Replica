@@ -44,9 +44,9 @@ public class CameraFollow : MonoBehaviour
             endMarker.y = MinPosYCam;
             return;
         }
-        
-        
-        if (playerController.GetCar().Speed > 5)
+
+
+        if (playerController.GetCar().Speed > 25 && Input.GetAxis("Vertical") > 0)
         {
             if (!subindoACamera)
             { //verifica se nao estava apertando o botao no frame anterior
