@@ -46,7 +46,7 @@ public class CameraFollow : MonoBehaviour
         }
 
 
-        if (playerController.GetCar().Speed > 25 && Input.GetAxis("Vertical") > 0)
+        if (playerController.GetCar().Speed > 25 && Input.GetAxis("CarAceleration") > 0)
         {
             if (!subindoACamera)
             { //verifica se nao estava apertando o botao no frame anterior
@@ -88,7 +88,7 @@ public class CameraFollow : MonoBehaviour
         float fractionOfJourney = distCovered / journeyLength;
         Vector3 posToGo = player.position;
         var y = Vector3.Lerp(startMarker, endMarker, fractionOfJourney).y;
-        Debug.Log(y);
+       // Debug.Log(y);
         posToGo.y = y.ToString() != "NaN" ? y : MinPosYCam;
         this.transform.position = posToGo;
     }

@@ -12,7 +12,7 @@ public class PlayerController : CharacterBase
     //estado carro
     protected override void CarMode()
     {
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetButtonUp("Interact"))
         {
             exitCar();
         }
@@ -20,7 +20,7 @@ public class PlayerController : CharacterBase
     protected override void WalkingMode()
     {
         //entrar veiculo
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetButtonUp("Interact"))
         {
             enterCar();
         }
@@ -46,8 +46,8 @@ public class PlayerController : CharacterBase
 
     protected override void _update()
     {
-        
 
+        //Debug.Log(Input.GetAxis("CarAceleration"));
     }
 
     void LateUpdate()

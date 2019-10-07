@@ -26,7 +26,7 @@ namespace VehicleBehaviour {
         public bool IsPlayer { get{ return isPlayer; } set{ isPlayer = value; } } 
 
         // Input names to read using GetAxis
-        [SerializeField] string throttleInput = "Throttle";
+        [SerializeField] string throttleInput = "CarAceleration";
         [SerializeField] string brakeInput = "Brake";
         [SerializeField] string turnInput = "Horizontal";
         [SerializeField] string jumpInput = "Jump";

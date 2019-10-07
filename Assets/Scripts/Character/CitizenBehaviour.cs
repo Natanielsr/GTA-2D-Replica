@@ -30,6 +30,8 @@ public class CitizenBehaviour : CharacterBase
 
     public bool VagabundoBandidoPilantra = false;
 
+    bool walkRandom { get; set; }
+
     private void Awake()
     {
         animator.SetBool("Grounded", true);
@@ -87,7 +89,19 @@ public class CitizenBehaviour : CharacterBase
             }
         }
 
+        
+
         RunZ = animator.GetFloat("RunZ");
+    }
+
+    protected override void WalkingMode()
+    {
+        base.WalkingMode();
+
+        if (walkRandom && CharState == CharacterState.ALIVE)
+        {
+            walkRandomPosition();
+        }
     }
 
     public void ReceiveViewObj(GameObject g) {
@@ -105,9 +119,12 @@ public class CitizenBehaviour : CharacterBase
                             var carScript = g.GetComponent<WheelVehicle>();
                             if (carScript.GetCarOwner() != null)
                             {
-                                navMesh.speed = RandSpeed();
-                                navMesh.SetDestination(RandomPositionToGo.position);
-
+                                if (!walkRandom)
+                                {
+                                    navMesh.speed = RandSpeed();
+                                    navMesh.SetDestination(RandomPositionToGo.position);
+                                }
+                                walkRandom = true;
                             }
                             else
                             {
@@ -118,10 +135,12 @@ public class CitizenBehaviour : CharacterBase
                                 {
                                     enterCar();
                                 }
+
+                                walkRandom = false;
                             }
                         }
                         else {
-                            walkRandomPosition();
+                            walkRandom = true;
                         }
 
                         break;
@@ -151,7 +170,7 @@ public class CitizenBehaviour : CharacterBase
     void walkRandomPosition() {
         
         var d = Vector3.Distance(RandomPositionToGo.position, transform.position);
-        
+       // Debug.Log(d);
         // Debug.Log(d);
         if (d < 3)
         {
