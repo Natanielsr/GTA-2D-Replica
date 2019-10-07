@@ -21,6 +21,7 @@ public class CitizenBehaviour : CharacterBase
     private float timeToThink;
 
     public GameObject Suit;
+    public GameObject SuitRagdoll;
 
     public float RunZ;
 
@@ -50,14 +51,16 @@ public class CitizenBehaviour : CharacterBase
 
         //Get the Renderer component from the new cube
         var renderer = Suit.GetComponent<Renderer>();
-
+        var rRag = SuitRagdoll.GetComponent<Renderer>();
         //Call SetColor using the shader property name "_Color" and setting the color to red
         var r = Random.Range(0.0f, 1.0f);
         var g = Random.Range(0.0f, 1.0f);
         var b = Random.Range(0.0f, 1.0f);
         var color = new Color(r, g, b);
-       
-        renderer.material.SetColor("_Color", color);
+
+       // renderer.material.shader = Shader.Find("Standard (Specular Setup)");
+        renderer.material.SetColor("_SpecColor", color);
+        rRag.material = renderer.material;
     }
 
     void randPosition() {

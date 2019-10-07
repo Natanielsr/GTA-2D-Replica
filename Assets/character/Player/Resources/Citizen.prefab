@@ -1989,7 +1989,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100008, guid: cc77ac7d0e1d6c84f8568c0703ee573e, type: 3}
+  - {fileID: 2100000, guid: 2fb46191600a6404eb483fbc352bb9a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2972,9 +2972,12 @@ MonoBehaviour:
   RandomPositionToGo: {fileID: 0}
   PosYCalibrate: -0.1
   TimeToDestroy: 60
+  TimeToThink: 3
   Suit: {fileID: 228}
+  SuitRagdoll: {fileID: 306}
   RunZ: 0
   fieldOfView: {fileID: 38930045}
+  VagabundoBandidoPilantra: 0
 --- !u!136 &944
 CapsuleCollider:
   m_ObjectHideFlags: 0
