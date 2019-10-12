@@ -7232,6 +7232,10 @@ PrefabInstance:
       propertyPath: VagabundoBandidoPilantra
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 38930045, guid: 7279d9789ca336541b6bb060bb811dce, type: 3}
+      propertyPath: targetMask.m_Bits
+      value: 34304
+      objectReference: {fileID: 0}
     - target: {fileID: 5175466485886339610, guid: 7279d9789ca336541b6bb060bb811dce,
         type: 3}
       propertyPath: m_IsActive
