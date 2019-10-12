@@ -25,13 +25,18 @@ public class FieldOfView : MonoBehaviour
         viewMesh = new Mesh();
         viewMesh.name = "View Mesh";
         viewMeshFilter.mesh = viewMesh;
-        StartCoroutine("FindTargetsWithDelay", .2f);
+        StartCoroutine("FindTargetsWithDelay", .500f);
     }
 
     IEnumerator FindTargetsWithDelay(float delay) {
         while (true) {
+            
             yield return new WaitForSeconds(delay);
+            visibleTargets.Clear();
+            nearbyTargets.Clear();
             FindVisibleTargets();
+            Debug.Log("GOL");
+
         }
     }
 
@@ -41,9 +46,8 @@ public class FieldOfView : MonoBehaviour
     }
 
     void FindVisibleTargets() {
-        visibleTargets.Clear();
-        nearbyTargets.Clear();
-
+        
+        
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
         for (int i = 0; i < targetsInViewRadius.Length; i++)
         {
@@ -58,6 +62,8 @@ public class FieldOfView : MonoBehaviour
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask)) {
                     visibleTargets.Add(target);
                     citizenBehaviour.ReceiveViewObj(target);
+
+                    
                 }
             }
         }

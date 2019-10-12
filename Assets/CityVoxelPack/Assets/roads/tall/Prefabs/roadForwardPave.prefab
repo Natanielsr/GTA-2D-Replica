@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4817866}
   - component: {fileID: 4817867}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: carGuideBottomRight
-  m_TagString: carGuide
+  m_TagString: carGuideB
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,9 +54,9 @@ GameObject:
   m_Component:
   - component: {fileID: 617236932}
   - component: {fileID: 617236933}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: carGuideBottomLeft
-  m_TagString: carGuide
+  m_TagString: carGuideA
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,9 +98,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1394652669}
   - component: {fileID: 1394652670}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: carGuideTopLeft
-  m_TagString: carGuide
+  m_TagString: carGuideA
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,9 +142,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7445717700216807975}
   - component: {fileID: 3614986238177701350}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: carGuideTopRight
-  m_TagString: carGuide
+  m_TagString: carGuideB
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,6 +231,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pavement1-10
       objectReference: {fileID: 0}
+    - target: {fileID: 4567323201291730997, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 664630144483340838, guid: adfde29e3d582c24988c04bafc8090e3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -286,6 +291,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8320170578634156388, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adfde29e3d582c24988c04bafc8090e3, type: 3}
 --- !u!4 &4256534196940932062 stripped
@@ -305,6 +315,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pavement1-10 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567323201291730997, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 664630144483340838, guid: adfde29e3d582c24988c04bafc8090e3,
         type: 3}
@@ -361,6 +376,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8320170578634156388, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adfde29e3d582c24988c04bafc8090e3, type: 3}
 --- !u!4 &4256534196839439097 stripped
@@ -380,6 +400,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pavement1-10 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567323201291730997, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 664630144483340838, guid: adfde29e3d582c24988c04bafc8090e3,
         type: 3}
@@ -436,6 +461,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8320170578634156388, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adfde29e3d582c24988c04bafc8090e3, type: 3}
 --- !u!4 &4256534197407485180 stripped
@@ -455,6 +485,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pavement1-10 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567323201291730997, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 664630144483340838, guid: adfde29e3d582c24988c04bafc8090e3,
         type: 3}
@@ -511,6 +546,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8320170578634156388, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adfde29e3d582c24988c04bafc8090e3, type: 3}
 --- !u!4 &4256534196152651373 stripped
@@ -530,6 +570,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pavement1-10 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567323201291730997, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 664630144483340838, guid: adfde29e3d582c24988c04bafc8090e3,
         type: 3}
@@ -586,6 +631,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8320170578634156388, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adfde29e3d582c24988c04bafc8090e3, type: 3}
 --- !u!4 &4256534195620079024 stripped
@@ -605,6 +655,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pavement1-10 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567323201291730997, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 664630144483340838, guid: adfde29e3d582c24988c04bafc8090e3,
         type: 3}
@@ -659,6 +714,11 @@ PrefabInstance:
     - target: {fileID: 664630144483340838, guid: adfde29e3d582c24988c04bafc8090e3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8320170578634156388, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -756,6 +816,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pavement1-10 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4567323201291730997, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 664630144483340838, guid: adfde29e3d582c24988c04bafc8090e3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -811,6 +876,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8320170578634156388, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adfde29e3d582c24988c04bafc8090e3, type: 3}
 --- !u!4 &4256534196639230724 stripped
@@ -830,6 +900,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pavement1-10 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567323201291730997, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 664630144483340838, guid: adfde29e3d582c24988c04bafc8090e3,
         type: 3}
@@ -884,6 +959,11 @@ PrefabInstance:
     - target: {fileID: 664630144483340838, guid: adfde29e3d582c24988c04bafc8090e3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8320170578634156388, guid: adfde29e3d582c24988c04bafc8090e3,
+        type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -26,12 +26,17 @@ public class CitizenBehaviour : CharacterBase
     public float RunZ;
 
     public FieldOfView fieldOfView;
+    Vector3 viewStartPosition;
 
     GameObject car;
 
     public bool VagabundoBandidoPilantra = false;
 
     bool walkRandom { get; set; }
+
+    
+
+
 
     private void Awake()
     {
@@ -40,6 +45,7 @@ public class CitizenBehaviour : CharacterBase
     // Start is called before the first frame update
     protected override void _start()
     {
+        viewStartPosition = fieldOfView.gameObject.transform.position;
         navMesh = GetComponent<NavMeshAgent>();
         randPosition();
 
@@ -108,7 +114,7 @@ public class CitizenBehaviour : CharacterBase
     }
 
     public void ReceiveViewObj(GameObject g) {
-
+        Debug.Log(g.tag);
         switch (CharState)
         {
             case CharacterState.ALIVE:
@@ -136,6 +142,15 @@ public class CitizenBehaviour : CharacterBase
                                 navMesh.SetDestination(g.transform.position);
                                 if (detectObjects.carNearby != null)
                                 {
+                                    //ia entra no carro
+                                    Vector3 newPosition = fieldOfView.gameObject.transform.position;
+                                    newPosition.y -= 3;
+                                    var rot = fieldOfView.gameObject.transform.rotation;
+                                    rot.y += 0.2f;
+
+                                    fieldOfView.gameObject.transform.position = newPosition;
+                                    fieldOfView.gameObject.transform.rotation = rot;
+                                    navMesh.enabled = false;
                                     enterCar();
                                 }
 
@@ -148,6 +163,16 @@ public class CitizenBehaviour : CharacterBase
 
                         break;
                     case CharacterMode.CAR_MODE:
+                        Debug.Log(g.tag);
+                        if (g.tag == "carGuideA")
+                        {
+                            Vertical = 1;
+                        }
+                        else
+                        {
+                            Vertical  = -1;
+                        }
+
                         break;
                     default:
                         break;
@@ -226,4 +251,15 @@ public class CitizenBehaviour : CharacterBase
             Gizmos.DrawSphere(RandomPositionToGo.position, 1);
     }
 
+    public override float GetInput(string input)
+    {
+        if (input == InputNames.throttleInput) {
+            return Vertical;
+        }
+        else if (input == InputNames.turnInput) {
+            return Horizontal;
+        }
+
+        return 0;
+    }
 }

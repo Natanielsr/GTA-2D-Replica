@@ -124,4 +124,9 @@ public class PlayerController : CharacterBase
     {
         throw new System.NotImplementedException();
     }
+
+    public override float GetInput(string input)
+    {
+        return Input.GetAxis(input);
+    }
 }

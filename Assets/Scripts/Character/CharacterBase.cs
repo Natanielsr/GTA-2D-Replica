@@ -34,8 +34,11 @@ public abstract class CharacterBase : MonoBehaviour
     public float footRadius = 1f;
     private Vector3 posFoot;
 
+    [Range(-1.0f, 1.0f)]
+    public float Vertical;
 
-    
+    [Range(-1.0f, 1.0f)]
+    public float Horizontal;
 
 
     // Start is called before the first frame update
@@ -95,6 +98,7 @@ public abstract class CharacterBase : MonoBehaviour
         //do
 
         transform.position = detectObjects.carNearby.transform.position;
+        transform.rotation = detectObjects.carNearby.transform.rotation;
 
         CarMode();
     }
@@ -208,7 +212,7 @@ public abstract class CharacterBase : MonoBehaviour
     protected virtual void CarMode() { }
     protected virtual void _start() { }
     protected virtual void _update() { }
-
+    public abstract float GetInput(string input);
 
     public WheelVehicle GetCar()
     {

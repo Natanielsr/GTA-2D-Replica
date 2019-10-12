@@ -13,6 +13,15 @@ using UnityEngine;
     using MOSC;
 #endif
 
+public static class InputNames{
+    // Input names to read using GetAxis
+    public static string throttleInput = "CarAceleration";
+    public static string brakeInput = "Brake";
+    public static string turnInput = "Horizontal";
+    public static string jumpInput = "Jump";
+    public static string driftInput = "Drift";
+    public static string boostInput = "Boost";
+}
 namespace VehicleBehaviour {
     [RequireComponent(typeof(Rigidbody))]
     public class WheelVehicle : MonoBehaviour {
@@ -23,15 +32,10 @@ namespace VehicleBehaviour {
     #endif
         // If isPlayer is false inputs are ignored
         [SerializeField] bool isPlayer = true;
-        public bool IsPlayer { get{ return isPlayer; } set{ isPlayer = value; } } 
+        public bool IsPlayer { get{ return isPlayer; } set{ isPlayer = value; } }
 
-        // Input names to read using GetAxis
-        [SerializeField] string throttleInput = "CarAceleration";
-        [SerializeField] string brakeInput = "Brake";
-        [SerializeField] string turnInput = "Horizontal";
-        [SerializeField] string jumpInput = "Jump";
-        [SerializeField] string driftInput = "Drift";
-	    [SerializeField] string boostInput = "Boost";
+        
+
 
         private CharacterBase CarOwner;
         
@@ -233,20 +237,20 @@ namespace VehicleBehaviour {
             speed = transform.InverseTransformDirection(_rb.velocity).z * 3.6f;
 
             // Get all the inputs!
-            if (isPlayer) {
+            if (CarOwner != null) {
                 // Accelerate & brake
-                if (throttleInput != "" && throttleInput != null)
+                if (InputNames.throttleInput != "" && InputNames.throttleInput != null)
                 {
-                    throttle = GetInput(throttleInput) - GetInput(brakeInput);
+                    throttle = GetInput(InputNames.throttleInput) - GetInput(InputNames.brakeInput);
                 }
                 // Boost
-                boosting = (GetInput(boostInput) > 0.5f);
+                boosting = (GetInput(InputNames.boostInput) > 0.5f);
                 // Turn
-                steering = turnInputCurve.Evaluate(GetInput(turnInput)) * steerAngle;
+                steering = turnInputCurve.Evaluate(GetInput(InputNames.turnInput)) * steerAngle;
                 // Dirft
-                drift = GetInput(driftInput) > 0 && _rb.velocity.sqrMagnitude > 100;
+                drift = GetInput(InputNames.driftInput) > 0 && _rb.velocity.sqrMagnitude > 100;
                 // Jump
-                jumping = GetInput(jumpInput) != 0;
+                jumping = GetInput(InputNames.jumpInput) != 0;
             }
 
             // Direction
@@ -361,19 +365,18 @@ namespace VehicleBehaviour {
 
         // Use this method if you want to use your own input manager
         private float GetInput(string input) {
-#if MULTIOSCONTROLS
-        return MultiOSControls.GetValue(input, playerId);
-#else
-        return Input.GetAxis(input);
-#endif
+
+            return CarOwner.GetInput(input);
         }
 
         private void OnTriggerEnter(Collider collision)
         {
             var go = collision.gameObject;
             if (go.tag == "citizen" ) {
-                if(Speed > 50 || Speed < -50)
-                    go.GetComponent<CitizenBehaviour>().Die();
+                var c = go.GetComponent<CitizenBehaviour>();
+                if (Speed > 50 || Speed < -50 && c.CharMode == CharacterMode.WALKING_MODE)
+                    c.Die();
+                    
             }
         }
 

@@ -68,7 +68,7 @@ public class CameraFollow : MonoBehaviour
             {//verifica se estava apertando o botao no frame anterior
                 startMarker.y = transform.position.y;
                 endMarker.y = MinPosYCam;
-                speed = 8.0f;
+                speed = 4.0f;
                 StartMoveCamera();
             }
 
