@@ -12,6 +12,7 @@ public class CitizenBehaviour : CharacterBase
     public Transform RandomPositionToGo;
 
     NavMeshAgent navMesh;
+    CarIA carIa;
    
     public float PosYCalibrate;
 
@@ -34,8 +35,8 @@ public class CitizenBehaviour : CharacterBase
 
     bool walkRandom { get; set; }
 
-    
 
+    public Transform CarGuide;
 
 
     private void Awake()
@@ -47,6 +48,7 @@ public class CitizenBehaviour : CharacterBase
     {
         viewStartPosition = fieldOfView.gameObject.transform.position;
         navMesh = GetComponent<NavMeshAgent>();
+        carIa = GetComponent<CarIA>();
         randPosition();
 
         
@@ -114,7 +116,7 @@ public class CitizenBehaviour : CharacterBase
     }
 
     public void ReceiveViewObj(GameObject g) {
-        Debug.Log(g.tag);
+        //Debug.Log(g.tag);
         switch (CharState)
         {
             case CharacterState.ALIVE:
@@ -163,14 +165,10 @@ public class CitizenBehaviour : CharacterBase
 
                         break;
                     case CharacterMode.CAR_MODE:
-                        Debug.Log(g.tag);
+                       // Debug.Log(g.tag);
                         if (g.tag == "carGuideA")
                         {
-                            Vertical = 1;
-                        }
-                        else
-                        {
-                            Vertical  = -1;
+                            CarGuide = g.transform;
                         }
 
                         break;
@@ -253,13 +251,6 @@ public class CitizenBehaviour : CharacterBase
 
     public override float GetInput(string input)
     {
-        if (input == InputNames.throttleInput) {
-            return Vertical;
-        }
-        else if (input == InputNames.turnInput) {
-            return Horizontal;
-        }
-
-        return 0;
+        return carIa.GetInput(input);
     }
 }

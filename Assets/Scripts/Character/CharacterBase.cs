@@ -34,11 +34,6 @@ public abstract class CharacterBase : MonoBehaviour
     public float footRadius = 1f;
     private Vector3 posFoot;
 
-    [Range(-1.0f, 1.0f)]
-    public float Vertical;
-
-    [Range(-1.0f, 1.0f)]
-    public float Horizontal;
 
 
     // Start is called before the first frame update

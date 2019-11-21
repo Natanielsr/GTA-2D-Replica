@@ -35,7 +35,7 @@ public class FieldOfView : MonoBehaviour
             visibleTargets.Clear();
             nearbyTargets.Clear();
             FindVisibleTargets();
-            Debug.Log("GOL");
+          //  Debug.Log("GOL");
 
         }
     }
