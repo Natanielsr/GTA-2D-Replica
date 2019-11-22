@@ -27,7 +27,10 @@ public class CarIA : MonoBehaviour
 
 
         if (transformToGo == null)
+        {
+            Horizontal = 0.0f;
             return;
+        }
 
         carTransform = this.transform;
 
@@ -38,7 +41,7 @@ public class CarIA : MonoBehaviour
         float newSteer = (relativeVector.x / relativeVector.magnitude) * MaxSteerAngle;
 
         Horizontal = convertAngleToInput(newSteer);
-
+        print(Horizontal);
 
     }
 
@@ -56,7 +59,7 @@ public class CarIA : MonoBehaviour
     private void Drive(){
         if (transformToGo != null)
         {
-            Vertical = 0.5f;
+            Vertical = 1f;
         }
         else {
             Vertical = 0.0f;
@@ -80,16 +83,18 @@ public class CarIA : MonoBehaviour
             return;
 
         var distance = Vector3.Distance(this.transform.position, transformToGo.position);
-        print(distance);
-        if (distance < 30)
+       // print(distance);
+        if (distance < 10)
         {
             print("neraby");
             var path = transformToGo.GetComponent<CarPath>();
-            if (path != null)
+            if (path.NextPath != null)
                 transformToGo = path.NextPath.transform;
             else
             {
+                transformToGo = null;
                 throw new NullReferenceException("Path not find");
+
             }
         }
     }
