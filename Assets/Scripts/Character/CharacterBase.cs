@@ -34,6 +34,7 @@ public abstract class CharacterBase : MonoBehaviour
     public float footRadius = 1f;
     private Vector3 posFoot;
 
+    public WheelVehicle car;
 
 
     // Start is called before the first frame update
@@ -153,6 +154,7 @@ public abstract class CharacterBase : MonoBehaviour
             car.IsPlayer = false;
         }
         car.ResetCarOwner();
+        car = null;
     }
 
     public void Die() {

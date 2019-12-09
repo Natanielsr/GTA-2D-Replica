@@ -374,7 +374,7 @@ namespace VehicleBehaviour {
             var go = collision.gameObject;
             if (go.tag == "citizen" ) {
                 var c = go.GetComponent<CitizenBehaviour>();
-                print(c.CharMode);
+               // print(c.CharMode);
                 if (Speed > 50 || Speed < -50)
                 {
                     if (c.CharMode == CharacterMode.WALKING_MODE)

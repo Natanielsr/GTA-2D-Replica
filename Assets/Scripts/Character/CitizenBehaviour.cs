@@ -29,7 +29,7 @@ public class CitizenBehaviour : CharacterBase
     public FieldOfView fieldOfView;
     Vector3 viewStartPosition;
 
-    GameObject car;
+   
 
     public bool VagabundoBandidoPilantra = false;
 
@@ -154,6 +154,7 @@ public class CitizenBehaviour : CharacterBase
                                     fieldOfView.gameObject.transform.rotation = rot;
                                     navMesh.enabled = false;
                                     enterCar();
+                                    car = carScript;
                                 }
 
                                 walkRandom = false;
@@ -166,8 +167,9 @@ public class CitizenBehaviour : CharacterBase
                         break;
                     case CharacterMode.CAR_MODE:
                        // Debug.Log(g.tag);
-                        if (g.tag == "carGuideA")
+                        if (g.tag == "carGuide")
                         {
+                         //   print(g);
                             CarGuide = g.transform;
                         }
 

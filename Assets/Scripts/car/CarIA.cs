@@ -1,6 +1,7 @@
 ﻿
 using System;
 using UnityEngine;
+using VehicleBehaviour;
 
 public class CarIA : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class CarIA : MonoBehaviour
     private Transform carTransform;
     Transform transformToGo;
     CitizenBehaviour citizen;
+    WheelVehicle wheelVehicle;
 
     private float MaxSteerAngle = 50;
 
@@ -21,15 +23,16 @@ public class CarIA : MonoBehaviour
     bool start = true;
     private void Start()
     {
+        
         citizen = GetComponent<CitizenBehaviour>();
     }
-    public void ApplySteer() {
-
+    public float ApplySteer() {
+        
 
         if (transformToGo == null)
         {
             Horizontal = 0.0f;
-            return;
+            return Horizontal;
         }
 
         carTransform = this.transform;
@@ -41,7 +44,8 @@ public class CarIA : MonoBehaviour
         float newSteer = (relativeVector.x / relativeVector.magnitude) * MaxSteerAngle;
 
         Horizontal = convertAngleToInput(newSteer);
-        print(Horizontal);
+
+        return Horizontal;
 
     }
 
@@ -51,15 +55,24 @@ public class CarIA : MonoBehaviour
         {
             
             GetFirstPathPoint();
-            Drive();
-            ApplySteer();
+            
+            float steer = ApplySteer();
+            Drive(steer);
+
             changePointTransform();
         }
     }
-    private void Drive(){
+    private void Drive(float steer){
         if (transformToGo != null)
         {
-            Vertical = 1f;
+            var positiveNumber = System.Math.Abs(steer);
+
+            var v = (1.0f - positiveNumber);
+
+            Vertical = v > 0.5f ? 0.5f : v;
+
+            print(citizen.car.Speed);
+
         }
         else {
             Vertical = 0.0f;
@@ -84,12 +97,15 @@ public class CarIA : MonoBehaviour
 
         var distance = Vector3.Distance(this.transform.position, transformToGo.position);
        // print(distance);
-        if (distance < 10)
+        if (distance < 7)
         {
-            print("neraby");
+            
             var path = transformToGo.GetComponent<CarPath>();
             if (path.NextPath != null)
+            {
                 transformToGo = path.NextPath.transform;
+                //print(transformToGo);
+            }
             else
             {
                 transformToGo = null;
