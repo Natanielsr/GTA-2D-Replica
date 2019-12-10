@@ -45,6 +45,7 @@ public class CarIA : MonoBehaviour
 
         Horizontal = convertAngleToInput(newSteer);
 
+        print(newSteer + " - " + Horizontal);
         return Horizontal;
 
     }
@@ -65,20 +66,31 @@ public class CarIA : MonoBehaviour
     private void Drive(float steer){
         if (transformToGo != null)
         {
-            var positiveNumber = System.Math.Abs(steer);
+            
+            if (citizen.car.Speed < 50)
+            {
+                var positiveNumber = System.Math.Abs(steer);
 
-            var v = (1.0f - positiveNumber);
+                var v = (1.0f - positiveNumber);
 
-            Vertical = v > 0.5f ? 0.5f : v;
+                // Vertical = v > 0.5f ? 0.5f : v;
+                Vertical = v;
+            }
+            else
+            {
+                Vertical = -1.0f;
+                
+            }
 
-            print(citizen.car.Speed);
+            //print(citizen.car.Speed+" - "+Vertical);
+
 
         }
         else {
             Vertical = 0.0f;
         }
     }
-
+    
     private void GetFirstPathPoint() {
         if (start)
         {
