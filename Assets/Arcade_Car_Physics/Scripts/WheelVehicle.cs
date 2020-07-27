@@ -16,7 +16,7 @@ using UnityEngine;
 public static class InputNames{
     // Input names to read using GetAxis
     public static string throttleInput = "CarAceleration";
-    public static string brakeInput = "Brake";
+    public static string brakeInput = "CarBrake";
     public static string turnInput = "Horizontal";
     public static string jumpInput = "Jump";
     public static string driftInput = "Drift";

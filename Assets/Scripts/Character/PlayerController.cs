@@ -4,10 +4,8 @@ using UnityEngine;
 using VehicleBehaviour;
 
 public class PlayerController : CharacterBase
-{
-    public Animation animation;
+{   
 
-    
 
     //estado carro
     protected override void CarMode()
@@ -30,13 +28,14 @@ public class PlayerController : CharacterBase
     // Start is called before the first frame update
     protected override void _start()
     {
-        if (animation == null)
-            Debug.Log("defina o animation");
+        if (animator == null)
+            Debug.Log("defina o animator");
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        
         if(CharMode == CharacterMode.WALKING_MODE)
         {
             movement();
@@ -46,7 +45,8 @@ public class PlayerController : CharacterBase
 
     protected override void _update()
     {
-
+        animator.transform.localPosition = Vector3.zero;
+        animator.transform.localRotation = new Quaternion(0f,0f,0f,0f);
         //Debug.Log(Input.GetAxis("CarAceleration"));
     }
 
@@ -57,13 +57,24 @@ public class PlayerController : CharacterBase
         {
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             {
-                animation.Play("walk 1");
-                audioSource.enabled = true;
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    //run
+                    animator.SetFloat("RunZ", 0.9f);
+                    audioSource.pitch = pitchRun;
+                }
+                else
+                {
+                    //walk
+                    animator.SetFloat("RunZ", 0.6f);
+                    audioSource.pitch = pitchWalk;
+                }
 
+                audioSource.enabled = true;
             }
             else
             {
-                animation.CrossFade("widle");
+                animator.SetFloat("RunZ", 0f);
                 audioSource.enabled = false;
             }
             rotateChar();
@@ -71,7 +82,7 @@ public class PlayerController : CharacterBase
         else if(CharMode == CharacterMode.CAR_MODE)
         {
             audioSource.enabled = false;
-            animation.CrossFade("widle");
+            animator.SetFloat("RunZ", 0f);
 
         }
         //
@@ -80,10 +91,21 @@ public class PlayerController : CharacterBase
     
     
     void movement(){
+
+        var currentSpeed = speed;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            currentSpeed = RunSpeed;
+        }
+        else
+        {
+            currentSpeed = speed;
+        }
+
         rigidbody.velocity = new Vector3(
-            Input.GetAxis("Horizontal") * speed * Time.deltaTime,
+            Input.GetAxis("Horizontal") * currentSpeed * Time.deltaTime,
             rigidbody.velocity.y,
-             Input.GetAxis("Vertical") * speed * Time.deltaTime);
+             Input.GetAxis("Vertical") * currentSpeed * Time.deltaTime);
         
     }
     

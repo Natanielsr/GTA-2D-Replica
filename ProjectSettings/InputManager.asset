@@ -312,32 +312,64 @@ InputManager:
   - serializedVersion: 3
     m_Name: CarAceleration
     descriptiveName: Interact with objects
-    descriptiveNegativeName: w
-    negativeButton: w
+    descriptiveNegativeName: 
+    negativeButton: 
     positiveButton: w
-    altNegativeButton: w
-    altPositiveButton: w
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 1000
     dead: 0.2
     sensitivity: 1
-    snap: 1
+    snap: 0
     invert: 0
-    type: 2
-    axis: 9
+    type: 0
+    axis: 0
     joyNum: 0
   - serializedVersion: 3
     m_Name: CarBrake
     descriptiveName: Interact with objects
-    descriptiveNegativeName: s
-    negativeButton: s
+    descriptiveNegativeName: 
+    negativeButton: 
     positiveButton: s
-    altNegativeButton: s
-    altPositiveButton: s
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 1000
     dead: 0.2
     sensitivity: 1
-    snap: 1
+    snap: 0
     invert: 0
-    type: 2
-    axis: 8
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: Boost
+    descriptiveName: Interact with objects
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: left shift
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: Drift
+    descriptiveName: Interact with objects
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: space
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
     joyNum: 0

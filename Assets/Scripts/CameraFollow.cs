@@ -37,6 +37,11 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
+        if (playerController == null)
+            return;
+
+        if (player.gameObject.activeSelf == false)
+            return;
         
         if (playerController.CharMode == CharacterMode.WALKING_MODE)
         {

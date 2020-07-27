@@ -26,7 +26,11 @@ public abstract class CharacterBase : MonoBehaviour
 
     protected DetectObjects detectObjects;
 
+    public GameObject Model;
+
     public float speed = 2;
+
+    public float RunSpeed = 4;
     
 
     public bool grounded = false;
@@ -35,6 +39,9 @@ public abstract class CharacterBase : MonoBehaviour
     private Vector3 posFoot;
 
     public WheelVehicle car;
+
+    public float pitchWalk = 1.15f;
+    public float pitchRun = 2.30f;
 
 
     // Start is called before the first frame update
@@ -119,6 +126,7 @@ public abstract class CharacterBase : MonoBehaviour
                 rigidbody.velocity = Vector3.zero;
                 rigidbody.useGravity = false;
                 collider.isTrigger = true;
+                Model.SetActive(false);
 
                 var positionToGo = detectObjects.carNearby.transform.position;
                 transform.position = positionToGo;
@@ -143,6 +151,7 @@ public abstract class CharacterBase : MonoBehaviour
         positionToGo.y = positionToGo.y + 5;
         transform.position = positionToGo;
 
+        Model.SetActive(true);
 
         collider.isTrigger = false;
         rigidbody.useGravity = true;
