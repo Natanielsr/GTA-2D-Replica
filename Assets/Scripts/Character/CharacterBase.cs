@@ -33,7 +33,7 @@ public abstract class CharacterBase : MonoBehaviour
     public float RunSpeed = 4;
     
 
-    public bool grounded = false;
+    public bool Grounded = false;
     public float footPosY = 0.86f;
     public float footRadius = 1f;
     private Vector3 posFoot;
@@ -42,6 +42,11 @@ public abstract class CharacterBase : MonoBehaviour
 
     public float pitchWalk = 1.15f;
     public float pitchRun = 2.30f;
+
+    //punch
+    public LayerMask PunchObjects;
+
+    public SoundController soundController;
 
 
     // Start is called before the first frame update
@@ -72,7 +77,9 @@ public abstract class CharacterBase : MonoBehaviour
         switch (CharMode)
         {
             case CharacterMode.WALKING_MODE:
+                
                 _walkingMode();
+                
                 break;
             case CharacterMode.CAR_MODE:
                 _carMode();
@@ -91,7 +98,7 @@ public abstract class CharacterBase : MonoBehaviour
         posFoot = transform.position;
         posFoot.y += footPosY;
 
-        grounded = isGrounded();
+        Grounded = isGrounded();
 
         WalkingMode();
     }
@@ -225,6 +232,32 @@ public abstract class CharacterBase : MonoBehaviour
         var c = detectObjects.carNearby.GetComponent<WheelVehicle>();
 
         return c;
+    }
+
+    
+
+    public void Punch()
+    {
+        Vector3 dir = transform.TransformDirection(Vector3.forward);
+        RaycastHit hit;
+        Vector3 start = new Vector3(
+            transform.position.x, transform.position.y+4f, transform.position.z);
+
+        float distance = 3f;
+
+        Debug.DrawRay(start, dir * distance, Color.green);
+
+        if (Physics.Raycast(start, dir, out hit, distance, PunchObjects))
+        {
+            if (hit.transform.tag == "citizen")
+            {
+                soundController.playRndAudioClip();
+                hit.transform.GetComponent<CharacterBase>().Die();
+            }
+        }
+        else
+        {
+        }
     }
 
 }

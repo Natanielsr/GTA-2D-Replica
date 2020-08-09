@@ -236,9 +236,6 @@ public class CitizenBehaviour : CharacterBase
 
         var cs = FindObjectOfType<CitizenSpawner>();
         cs.removeCitizen(this.gameObject);
-
-
-        
     }
 
     void OnDrawGizmosSelected()

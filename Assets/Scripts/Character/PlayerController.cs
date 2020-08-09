@@ -4,8 +4,8 @@ using UnityEngine;
 using VehicleBehaviour;
 
 public class PlayerController : CharacterBase
-{   
-
+{
+    public float JumpSpeed = 2;
 
     //estado carro
     protected override void CarMode()
@@ -17,11 +17,14 @@ public class PlayerController : CharacterBase
     }
     protected override void WalkingMode()
     {
+       
+
         //entrar veiculo
         if (Input.GetButtonUp("Interact"))
         {
             enterCar();
         }
+        
 
     }
 
@@ -35,12 +38,11 @@ public class PlayerController : CharacterBase
     // Update is called once per frame
     void FixedUpdate()
     {
-        
+        //update on physics update
         if(CharMode == CharacterMode.WALKING_MODE)
         {
             movement();
         }
-
     }
 
     protected override void _update()
@@ -78,6 +80,13 @@ public class PlayerController : CharacterBase
                 audioSource.enabled = false;
             }
             rotateChar();
+
+            if (Input.GetButton("Fire1"))
+            {
+                animator.SetTrigger("Punching");
+            }
+
+            animator.SetBool("Grounded", Grounded);
         }
         else if(CharMode == CharacterMode.CAR_MODE)
         {
@@ -102,10 +111,17 @@ public class PlayerController : CharacterBase
             currentSpeed = speed;
         }
 
+        var jump = rigidbody.velocity.y;
+        if (Input.GetKey(KeyCode.Space))
+        {
+            jump = JumpSpeed * Time.deltaTime;
+            Debug.Log("jump "+jump);
+        }
+
         rigidbody.velocity = new Vector3(
             Input.GetAxis("Horizontal") * currentSpeed * Time.deltaTime,
-            rigidbody.velocity.y,
-             Input.GetAxis("Vertical") * currentSpeed * Time.deltaTime);
+            jump,
+            Input.GetAxis("Vertical") * currentSpeed * Time.deltaTime);
         
     }
     
