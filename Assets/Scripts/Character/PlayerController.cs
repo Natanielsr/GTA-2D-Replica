@@ -134,7 +134,6 @@ public class PlayerController : CharacterBase
         if (Input.GetKey(KeyCode.Space) && Grounded)
         {
             jump = JumpSpeed * Time.deltaTime;
-            Debug.Log("jump "+jump);
         }
 
         rigidbody.velocity = new Vector3(

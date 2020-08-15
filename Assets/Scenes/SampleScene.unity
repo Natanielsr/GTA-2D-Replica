@@ -13170,6 +13170,11 @@ PrefabInstance:
       propertyPath: WeaponPostion
       value: 
       objectReference: {fileID: 692734780}
+    - target: {fileID: 3782828303393330065, guid: fd8d7f19993b6ff47b5a5ab7621afa65,
+        type: 3}
+      propertyPath: JumpSpeed
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 692734780, guid: fd8d7f19993b6ff47b5a5ab7621afa65, type: 3}
       propertyPath: m_LocalPosition.z
       value: 2.01
