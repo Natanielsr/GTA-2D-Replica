@@ -8,13 +8,17 @@ public class Bullet : MonoBehaviour
     public float bulletSpeed = 10;
     private Rigidbody bulletRigid;
     public float timeToDestroy = 5f;
+    MeshRenderer mesh;
 
     void Start()
     {
         bulletRigid = GetComponent<Rigidbody>();
         StartCoroutine(DestroyBullet());
         bulletRigid.AddForce(transform.forward * bulletSpeed);
+
+        mesh = GetComponent<MeshRenderer>();
     }
+
 
     // Update is called once per frame
     void LateUpdate()
@@ -30,6 +34,12 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
+        if (other.tag == "citizen")
+        {
+            other.GetComponent<CharacterBase>().Die();
+        }
+
+        mesh.enabled = false;
+      //  Destroy(gameObject);
     }
 }
