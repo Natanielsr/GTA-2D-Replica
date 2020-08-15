@@ -12,6 +12,7 @@ TagManager:
   - carGuide
   - carGuideA
   - carGuideB
+  - weapon
   layers:
   - Default
   - TransparentFX

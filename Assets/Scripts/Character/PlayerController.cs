@@ -6,6 +6,7 @@ using VehicleBehaviour;
 public class PlayerController : CharacterBase
 {
     public float JumpSpeed = 2;
+    public Transform WeaponPostion;
 
     //estado carro
     protected override void CarMode()
@@ -17,22 +18,38 @@ public class PlayerController : CharacterBase
     }
     protected override void WalkingMode()
     {
-       
-
         //entrar veiculo
         if (Input.GetButtonUp("Interact"))
         {
             enterCar();
         }
-        
 
+        ChangingWeapon();
+
+    }
+
+    void ChangingWeapon()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
+        {
+            ChangeWeapon(weaponSelected + 1);
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") <0f) // backwards
+        {
+            ChangeWeapon(weaponSelected - 1);
+        }
     }
 
     // Start is called before the first frame update
     protected override void _start()
     {
         if (animator == null)
-            Debug.Log("defina o animator");
+            Debug.LogError("defina o animator");
+        else
+        {
+            Weapons[0].GetComponent<Punch>().SetAnimator(animator);
+        }
+        
     }
 
     // Update is called once per frame
@@ -52,7 +69,7 @@ public class PlayerController : CharacterBase
         //Debug.Log(Input.GetAxis("CarAceleration"));
     }
 
-    void LateUpdate()
+    protected override void _lateUpdate()
     {
         //animacoes
         if (CharMode == CharacterMode.WALKING_MODE)
@@ -79,14 +96,16 @@ public class PlayerController : CharacterBase
                 animator.SetFloat("RunZ", 0f);
                 audioSource.enabled = false;
             }
-            rotateChar();
 
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButton("Fire1") && Grounded)
             {
-                animator.SetTrigger("Punching");
+                if(Weapons.Count > 0)
+                    this.Weapons[weaponSelected].GetComponent<Weapon>().Interact();
             }
 
-            animator.SetBool("Grounded", Grounded);
+            rotateChar();
+
+            
         }
         else if(CharMode == CharacterMode.CAR_MODE)
         {
@@ -112,7 +131,7 @@ public class PlayerController : CharacterBase
         }
 
         var jump = rigidbody.velocity.y;
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && Grounded)
         {
             jump = JumpSpeed * Time.deltaTime;
             Debug.Log("jump "+jump);
@@ -166,5 +185,19 @@ public class PlayerController : CharacterBase
     public override float GetInput(string input)
     {
         return Input.GetAxis(input);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "weapon")
+        {
+            var weaponPrefab = other.GetComponent<PickableItem>().ItemPrefab.GetComponent<Weapon>();
+            var weaponObject = Instantiate(weaponPrefab.gameObject,
+                WeaponPostion.transform.position, WeaponPostion.transform.rotation,  WeaponPostion);
+            
+            Weapons.Add(weaponObject);
+            weaponObject.GetComponent<Weapon>().StartWeapon();
+            Destroy(other.gameObject);
+        }
     }
 }

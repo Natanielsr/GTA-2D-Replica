@@ -48,11 +48,17 @@ public abstract class CharacterBase : MonoBehaviour
 
     public SoundController soundController;
 
+    protected List<GameObject> Weapons;
+    protected int weaponSelected = 0;
+
+    public GameObject PunchPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Weapons = new List<GameObject>();
+        Weapons.Add(PunchPrefab);
+
         collider = GetComponent<Collider>();
         rigidbody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
@@ -89,6 +95,12 @@ public abstract class CharacterBase : MonoBehaviour
         _update();
     }
 
+    public void ChangeWeapon(int numbWeapon)
+    {
+        if(numbWeapon >= 0 && numbWeapon < Weapons.Count)
+            weaponSelected = numbWeapon;
+    }
+
     void _walkingMode()
     {
 
@@ -115,7 +127,21 @@ public abstract class CharacterBase : MonoBehaviour
 
     private void LateUpdate()
     {
-        
+        switch (CharMode)
+        {
+            case CharacterMode.WALKING_MODE:
+
+                
+
+                animator.SetBool("Grounded", Grounded);
+
+                break;
+            case CharacterMode.CAR_MODE:
+
+                break;
+        }
+
+        _lateUpdate();
     }
 
 
@@ -225,6 +251,7 @@ public abstract class CharacterBase : MonoBehaviour
     protected virtual void CarMode() { }
     protected virtual void _start() { }
     protected virtual void _update() { }
+    protected virtual void _lateUpdate() { }
     public abstract float GetInput(string input);
 
     public WheelVehicle GetCar()
@@ -233,8 +260,6 @@ public abstract class CharacterBase : MonoBehaviour
 
         return c;
     }
-
-    
 
     public void Punch()
     {

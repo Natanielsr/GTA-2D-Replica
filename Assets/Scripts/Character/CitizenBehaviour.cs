@@ -212,7 +212,7 @@ public class CitizenBehaviour : CharacterBase
         }
     }
 
-    void LateUpdate()
+    protected override void _lateUpdate()
     {
         if (CharState == CharacterState.ALIVE)
         {
@@ -252,4 +252,6 @@ public class CitizenBehaviour : CharacterBase
     {
         return carIa.GetInput(input);
     }
+    
+     
 }
