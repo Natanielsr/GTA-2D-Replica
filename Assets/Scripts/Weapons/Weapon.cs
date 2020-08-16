@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    public string Type;
     public void Interact()
     {
         _interact();

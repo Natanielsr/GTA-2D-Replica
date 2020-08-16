@@ -97,8 +97,19 @@ public abstract class CharacterBase : MonoBehaviour
 
     public void ChangeWeapon(int numbWeapon)
     {
-        if(numbWeapon >= 0 && numbWeapon < Weapons.Count)
+        if (numbWeapon >= 0 && numbWeapon < Weapons.Count)
+        {
             weaponSelected = numbWeapon;
+            if (Weapons[weaponSelected].GetComponent<Weapon>().Type == "Pistol")
+            {
+                animator.SetBool("Gun", true);
+            }
+            else
+            {
+                Debug.Log("sem gun");
+                animator.SetBool("Gun", false);
+            }
+        }
     }
 
     void _walkingMode()

@@ -4298,12 +4298,6 @@ Transform:
   m_Father: {fileID: 2147451911}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &692734780 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 692734780, guid: fd8d7f19993b6ff47b5a5ab7621afa65,
-    type: 3}
-  m_PrefabInstance: {fileID: 3782828304552496552}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &698642992
 GameObject:
   m_ObjectHideFlags: 0
@@ -13164,20 +13158,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3782828303393330065, guid: fd8d7f19993b6ff47b5a5ab7621afa65,
-        type: 3}
-      propertyPath: WeaponPostion
-      value: 
-      objectReference: {fileID: 692734780}
-    - target: {fileID: 3782828303393330065, guid: fd8d7f19993b6ff47b5a5ab7621afa65,
-        type: 3}
-      propertyPath: JumpSpeed
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 692734780, guid: fd8d7f19993b6ff47b5a5ab7621afa65, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd8d7f19993b6ff47b5a5ab7621afa65, type: 3}
