@@ -14,6 +14,13 @@ public class Pistol : Weapon
 
     public GameObject BulletPrefab;
 
+    public SoundController soundController;
+
+    void Start()
+    {
+        soundController = FindObjectOfType<SoundController>();
+    }
+
     public override void StartWeapon()
     {
         cocked = true;
@@ -25,6 +32,7 @@ public class Pistol : Weapon
     {
         if (currentAmmo > 0 && cocked)
         {
+            soundController.playShot();
             var bf = Instantiate(BulletPrefab, transform.position, transform.rotation);
             currentAmmo--;
             cocked = false;

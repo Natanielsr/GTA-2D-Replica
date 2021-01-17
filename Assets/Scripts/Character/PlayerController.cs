@@ -8,6 +8,22 @@ public class PlayerController : CharacterBase
     public float JumpSpeed = 2;
     public Transform WeaponPostion;
 
+    MainGameUI mainGameUI;
+
+    // Start is called before the first frame update
+    protected override void _start()
+    {
+        mainGameUI = FindObjectOfType<MainGameUI>();
+
+        if (animator == null)
+            Debug.LogError("defina o animator");
+        else
+        {
+            Weapons[0].GetComponent<Punch>().SetAnimator(animator);
+        }
+
+    }
+
     //estado carro
     protected override void CarMode()
     {
@@ -30,27 +46,29 @@ public class PlayerController : CharacterBase
 
     void ChangingWeapon()
     {
+        var posScroll = 0;
         if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
         {
-            ChangeWeapon(weaponSelected + 1);
+            posScroll = 1;
         }
         if (Input.GetAxis("Mouse ScrollWheel") <0f) // backwards
         {
-            ChangeWeapon(weaponSelected - 1);
+            posScroll = -1;
         }
-    }
 
-    // Start is called before the first frame update
-    protected override void _start()
-    {
-        if (animator == null)
-            Debug.LogError("defina o animator");
-        else
+        if(posScroll != 0)
         {
-            Weapons[0].GetComponent<Punch>().SetAnimator(animator);
+            Weapon weapon;
+            weapon = ChangeWeapon(weaponSelected + posScroll);
+            if (weapon != null)
+                mainGameUI.setGunImage(weapon.Image);
         }
         
+
+
     }
+
+    
 
     // Update is called once per frame
     void FixedUpdate()
@@ -97,11 +115,8 @@ public class PlayerController : CharacterBase
                 audioSource.enabled = false;
             }
 
-            if (Input.GetButton("Fire1") && Grounded)
-            {
-                if(Weapons.Count > 0)
-                    this.Weapons[weaponSelected].GetComponent<Weapon>().Interact();
-            }
+            shot();
+           
 
             rotateChar();
 
@@ -114,6 +129,15 @@ public class PlayerController : CharacterBase
 
         }
         //
+    }
+
+    void shot()
+    {
+        if (Input.GetButton("Fire1") && Grounded)
+        {
+            if (Weapons.Count > 0) 
+                this.Weapons[weaponSelected].GetComponent<Weapon>().Interact();
+        }
     }
 
     
@@ -186,6 +210,7 @@ public class PlayerController : CharacterBase
         return Input.GetAxis(input);
     }
 
+    //add weapon
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "weapon")
@@ -197,6 +222,7 @@ public class PlayerController : CharacterBase
             Weapons.Add(weaponObject);
             weaponObject.GetComponent<Weapon>().StartWeapon();
             Destroy(other.gameObject);
+            soundController.playGetGun();
         }
     }
 }

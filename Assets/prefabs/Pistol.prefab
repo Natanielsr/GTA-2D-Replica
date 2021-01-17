@@ -92,8 +92,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: Pistol
+  Image: {fileID: 21300010, guid: 0bd96f6f4899f644ea1ffd9b4735a5e6, type: 3}
   MaximumCockedBullets: 15
   MaximumStoredBullets: 15
   FireCadence: 0.25
   BulletPrefab: {fileID: 6631671169856095836, guid: 095ec14e79c684549b8caf4f24995b68,
     type: 3}
+  soundController: {fileID: 0}

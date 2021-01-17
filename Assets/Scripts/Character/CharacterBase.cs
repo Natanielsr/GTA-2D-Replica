@@ -53,6 +53,7 @@ public abstract class CharacterBase : MonoBehaviour
 
     public GameObject PunchPrefab;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,7 +96,7 @@ public abstract class CharacterBase : MonoBehaviour
         _update();
     }
 
-    public void ChangeWeapon(int numbWeapon)
+    public Weapon ChangeWeapon(int numbWeapon)
     {
         if (numbWeapon >= 0 && numbWeapon < Weapons.Count)
         {
@@ -103,13 +104,17 @@ public abstract class CharacterBase : MonoBehaviour
             if (Weapons[weaponSelected].GetComponent<Weapon>().Type == "Pistol")
             {
                 animator.SetBool("Gun", true);
+                Debug.Log(animator.GetBool("Gun"));
             }
             else
             {
-                Debug.Log("sem gun");
+               // Debug.Log("sem gun");
                 animator.SetBool("Gun", false);
+                Debug.Log(animator.GetBool("Gun"));
             }
+            return Weapons[weaponSelected].GetComponent<Weapon>();
         }
+        return null;
     }
 
     void _walkingMode()
